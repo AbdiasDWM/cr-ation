@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de Sites, Graphisme & Sécurité</title>
+    <link rel="icon" href="ab.png" type="image/png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            
+        }
+      
+
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        .floating-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0.5rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            transform-origin: left top;
+        }
+        
+        .form-group:focus-within .floating-label,
+        .form-group.filled .floating-label {
+            transform: translateY(-1.25rem) scale(0.75);
+            background-color: white;
+            padding: 0 0.5rem;
+            color: var(--primary);
+        }
+         /* Portfolio grid moderne */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            group: hover;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .project-image {
+            height: 240px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-image::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .project-content {
+            padding: 32px;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .project-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 12px;
+        }
+
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-laptop-code text-3xl"></i>
+                    <h1 class="text-2xl font-bold">Abdias_DEV</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#accueil" class="nav-link text-white hover:text-gray-200">Accueil</a>
+                    <a href="#services" class="nav-link text-white hover:text-gray-200">Services</a>
+                    <a href="#processus" class="nav-link text-white hover:text-gray-200">Processus</a>
+                    
+                    <a href="#contact" class="nav-link text-white hover:text-gray-200">Contact</a>
+                </nav>
+                <button class="md:hidden text-white text-2xl" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-indigo-700" id="mobile-menu">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#accueil" class="text-white hover:text-gray-200">Accueil</a>
+                <a href="#services" class="text-white hover:text-gray-200">Services</a>
+                <a href="#processus" class="text-white hover:text-gray-200">Processus</a>
+                <a href="#portfolio" class="text-white hover:text-gray-200">Portfolio</a>
+                <a href="#contact" class="text-white hover:text-gray-200">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Solutions Python Sur Mesure</h1>
+                <p class="text-xl mb-8">Nous développons des sites web puissants avec Django/Flask, des outils graphiques en Python et des solutions de sécurité robustes pour votre entreprise.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold text-center hover:bg-gray-100 transition duration-300">Demander un devis</a>
+                    <a href="#services" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-white hover:text-indigo-600 transition duration-300">Nos services</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg" alt="Services Web" class="rounded-xl shadow-2xl max-w-full h-auto">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nos Services Premium</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Nous offrons une gamme complète de services digitaux pour répondre à tous vos besoins en ligne.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Web Development -->
+                <div class="service-card bg-white border border-gray-200 rounded-lg">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-code text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Développement Web Python</h3>
+                        <p class="text-gray-600 mb-4">Sites et applications web performants avec Django, Flask et les dernières technologies Python.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Django & Flask</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>API RESTful</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Automatisation web</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="text-indigo-600 font-semibold hover:text-indigo-800 flex items-center">
+                            Commander maintenant <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Graphic Design -->
+                <div class="service-card bg-white border border-gray-200 rounded-lg transform scale-105 shadow-lg">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-paint-brush text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Design Automatisé</h3>
+                        <p class="text-gray-600 mb-4">Outils Python pour génération de designs, traitement d'images et création de visuels en masse.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Logo & identité visuelle</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Charte graphique</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Supports marketing</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="text-green-600 font-semibold hover:text-green-800 flex items-center">
+                            Commander maintenant <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Cybersecurity -->
+                <div class="service-card bg-white border border-gray-200 rounded-lg">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-shield-alt text-red-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Sécurité Python</h3>
+                        <p class="text-gray-600 mb-4">Audits de sécurité, scripts de protection et outils personnalisés en Python pour sécuriser vos systèmes.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Audit de sécurité</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Protection des données</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Formation des équipes</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="text-red-600 font-semibold hover:text-red-800 flex items-center">
+                            Commander maintenant <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="processus" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Notre Processus en 4 Étapes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Une méthodologie éprouvée pour des résultats exceptionnels à chaque projet.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-indigo-600 font-bold text-2xl">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Consultation</h3>
+                    <p class="text-gray-600">Analyse de vos besoins et définition des objectifs.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-green-600 font-bold text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Conception</h3>
+                    <p class="text-gray-600">Création des maquettes et validation avec vous.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-yellow-600 font-bold text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Développement</h3>
+                    <p class="text-gray-600">Implémentation technique et tests rigoureux.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-purple-600 font-bold text-2xl">4</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Livraison</h3>
+                    <p class="text-gray-600">Mise en ligne et formation si nécessaire.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Portfolio Section -->
+    <section id="projet">
+        <div class="container">
+           <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nos Réalisations</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Découvrez quelques-uns de nos projets récents pour nos clients satisfaits.</p>
+            </div>
+            <div class="portfolio-grid reveal">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="c.png" alt="Sécurité" width="600px">
+                    </div>
+                    <div class="project-content">
+                        <h3>Sécurité Web</h3>
+                        <p>Un site qui vous annalyse vos sites internet </p>
+                        <div class="project-tags">
+                            <span class="tag">js</span>
+                            
+                        </div>
+                        <a href="https://scuritweb.netlify.app/" class="project-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+               
+                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="b.png" alt="mets" width="600px">
+                    </div>
+                    <div class="project-content">
+                        <h3>Site De Vente</h3>
+                        <p>Ventes de mets </p>
+                        <div class="project-tags">
+                            <span class="tag">Vue js</span>
+                            <span class="tag">Node JS</span>
+                    
+                        </div>
+                        <a href="https://metscuisine.onrender.com/" class="project-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                 
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="a.png" alt="resto" width="600px">
+                    </div>
+                    <div class="project-content">
+                        <h3>Site De Vente</h3>
+                        <p>un mini site de test commande de nouriture en lignes</p>
+                        <div class="project-tags">
+                            <span class="tag">Wordpress</span>
+                            
+                        </div>
+                        <a href="metscuisine.infinityfreeapp.com " class="project-link">
+                            Voir le projet <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Ce Que Disent Nos Clients</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Des centaines d'entreprises nous font confiance pour leurs besoins digitaux.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Le site web créé par WebMaster Pro a dépassé nos attentes. Notre trafic a augmenté de 150% en 3 mois!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Sophie Martin</h4>
+                            <p class="text-gray-500 text-sm">CEO, Mode & Co</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Leur expertise en sécurité nous a permis de sécuriser nos données sensibles contre les cyberattaques."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Thomas Leroy</h4>
+                            <p class="text-gray-500 text-sm">Directeur IT, FinSecure</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Notre nouvelle identité visuelle a complètement transformé notre image de marque. Un travail exceptionnel!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Élodie Petit</h4>
+                            <p class="text-gray-500 text-sm">Directrice Marketing, GreenLife</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-indigo-50 to-green-50 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 gradient-bg text-white p-10">
+                        <h2 class="text-3xl font-bold mb-6">Passons à l'action</h2>
+                        <p class="mb-8">Prêt à donner vie à votre projet digital? Remplissez le formulaire et nous vous recontacterons sous 24h.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-phone-alt mr-4 text-xl"></i>
+                                <span>+229 01 96 43 58 10</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope mr-4 text-xl"></i>
+                                <span>Abdiasazifanaz@gmail.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt mr-4 text-xl"></i>
+                                <span>Cotonou, Gbêdjromedé Rue 69B6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-10">
+                        <form id="contact-form" class="space-y-6" action="https://formspree.io/f/mzzeaaao" method="POST">
+  <div class="form-group relative">
+    <input type="text" id="name" name="name" class="form-input w-full px-4 py-3 rounded-lg border" required>
+    <label for="name" class="floating-label">Votre nom complet</label>
+  </div>
+
+  <div class="form-group relative">
+    <input type="email" id="email" name="email" class="form-input w-full px-4 py-3 rounded-lg border" required>
+    <label for="email" class="floating-label">Votre email</label>
+  </div>
+
+  <div class="form-group relative">
+    <input type="tel" id="phone" name="phone" class="form-input w-full px-4 py-3 rounded-lg border">
+    <label for="phone" class="floating-label">Téléphone (optionnel)</label>
+  </div>
+
+  <div class="form-group">
+    <select id="service" name="service" class="form-input w-full px-4 py-3 rounded-lg border appearance-none" required>
+      <option value="" disabled selected></option>
+      <option value="web">Développement Web Python</option>
+      <option value="design">Design Automatisé Python</option>
+      <option value="security">Sécurité Python</option>
+      <option value="other">Autre demande</option>
+    </select>
+    <label for="service" class="absolute left-4 top-0 px-1 text-gray-500 bg-white transform -translate-y-1/2 text-sm">Service souhaité</label>
+  </div>
+
+  <div class="form-group relative">
+    <textarea id="message" name="message" rows="4" class="form-input w-full px-4 py-3 rounded-lg border" required></textarea>
+    <label for="message" class="floating-label">Décrivez votre projet</label>
+  </div>
+
+  <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300">
+    Envoyer la demande <i class="fas fa-paper-plane ml-2"></i>
+  </button>
+</form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Questions Fréquentes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Trouvez des réponses aux questions les plus courantes sur nos
+</html>
