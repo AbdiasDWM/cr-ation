@@ -207,6 +207,15 @@
             </div>
         </div>
     </header>
+    <script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 
     <!-- Hero Section -->
     <section id="accueil" class="gradient-bg text-white py-20">
@@ -577,4 +586,5 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Questions Fréquentes</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Trouvez des réponses aux questions les plus courantes sur nos
+                </p>
 </html>
